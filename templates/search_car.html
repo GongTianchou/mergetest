@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Your Car</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- JavaScript to validate range inputs -->
+    <script type="text/javascript">
+        function validateRanges() {
+            var minYear = document.getElementById("min_year").value;
+            var maxYear = document.getElementById("max_year").value;
+            var minMileage = document.getElementById("min_mile").value;
+            var maxMileage = document.getElementById("max_mile").value;
+            var minPrice = document.getElementById("min_price").value;
+            var maxPrice = document.getElementById("max_price").value;
+            var searchButton = document.getElementById("search_button");
+            var errorMessage = document.getElementById("error_message");
+
+            // Reset the error message and enable the button
+            errorMessage.style.display = "none";
+            searchButton.disabled = false;
+
+            // Check year range
+            if (minYear && maxYear && parseInt(minYear) > parseInt(maxYear)) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent =
+                    "Minimum year cannot be greater than maximum year.";
+                searchButton.disabled = true;
+                return;
+            }
+
+            // Check mileage range
+            if (
+                minMileage &&
+                maxMileage &&
+                parseInt(minMileage) > parseInt(maxMileage)
+            ) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent =
+                    "Minimum mileage cannot be greater than maximum mileage.";
+                searchButton.disabled = true;
+                return;
+            }
+
+            // Check price range
+            if (minPrice && maxPrice && parseInt(minPrice) > parseInt(maxPrice)) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent =
+                    "Minimum price cannot be greater than maximum price.";
+                searchButton.disabled = true;
+                return;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Find Your Car</h1>
+
+        <!-- Filters Section -->
+        <form action="" method="get">
+            <!-- Search Bar -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <input type="text" class="form-control" name="search_term"
+                        placeholder="Search by make or model..." />
+                </div>
+            </div>
+
+            <!-- Make Dropdown -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <select class="form-control" name="make" id="make">
+                        <option value="">Select Make</option>
+                        {% for make in makes %}
+                        <option value="{{ make }}">{{ make }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Year Dropdowns -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <select class="form-control" name="min_year" id="min_year" onchange="validateRanges()">
+                        <option value="">Min Year</option>
+                        {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="max_year" id="max_year" onchange="validateRanges()">
+                        <option value="">Max Year</option>
+                        {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Mileage Dropdowns -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <select class="form-control" name="min_mile" id="min_mile" onchange="validateRanges()">
+                        <option value="">Min Mileage</option>
+                        {% for mileage in mileages %}
+                        <option value="{{ mileage }}">{{ mileage }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="max_mile" id="max_mile" onchange="validateRanges()">
+                        <option value="">Max Mileage</option>
+                        {% for mileage in mileages %}
+                        <option value="{{ mileage }}">{{ mileage }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Price Dropdowns -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <select class="form-control" name="min_price" id="min_price" onchange="validateRanges()">
+                        <option value="">Min Price</option>
+                        {% for price in prices %}
+                        <option value="{{ price }}">{{ price }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="max_price" id="max_price" onchange="validateRanges()">
+                        <option value="">Max Price</option>
+                        {% for price in prices %}
+                        <option value="{{ price }}">{{ price }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary" id="search_button">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Error Message -->
+        <div id="error_message" style="display: none" class="alert alert-danger"></div>
+
+        <!-- Results Section -->
+        <!-- Here you will include the logic to display the filtered results -->
+    </div>
+
+    <!-- Error Message -->
+    <div id="error_message" style="display: none" class="alert alert-danger"></div>
+
+    <!-- Results Section -->
+    <div class="row mt-4" style="padding-left: 40px; padding-right: 40px">
+        {% if vehicles %} {% for vehicle in vehicles %}
+        <!-- Vehicle Card -->
+        <div class="col-md-4 mb-4">
+            <!-- Wrap the card in an <a> tag -->
+            <a href=" {% url 'product_detail' listing_id=vehicle.listing_id %}" class="text-decoration-none text-dark">
+                <div class="card h-100">
+                    <img src="{{ vehicle.image_url }}" class="card-img-top" alt="Vehicle Image"
+                        style="height: 200px; object-fit: cover" />
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}
+                        </h5>
+                        <p class="card-text">Starting Price: ${{ vehicle.price }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row mt-4" style="padding-left: 40px; padding-right: 40px">
+        {% endif %} {% endfor %} {% else %}
+        <p class="col-md-12">No vehicles found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

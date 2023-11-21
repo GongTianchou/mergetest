@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{ product.make }} {{ product.model }} - {{ product.year_of_production }}
+    </title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background-color: #f4f4f4;
+      }
+      .product-image img {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .product-details,
+      .bidding-section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .product-details h3,
+      .product-details h4,
+      .bidding-section h4 {
+        color: #333;
+      }
+      .footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #f4f4f4;
+        border-top: 1px solid #ccc;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <!-- First Column: 50% Width -->
+        <div class="col-md-6">
+          <!-- Product Image (First Row) -->
+          <div class="row mb-3">
+            <div class="col product-image">
+              <img
+                src="{{ product.image_url }}"
+                alt="{{ product.make }} {{ product.model }}"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+
+          <!-- Bidding Section -->
+          <div class="bidding-section">
+            <h4>Bid</h4>
+            <button>Place your bid</button>
+
+            <!-- Display Current Bid Amount -->
+            <p>
+              Your current bid amount:
+              <span id="currentBid"
+                >{{ product.current_bid|default:"N/A" }}</span
+              >
+            </p >
+          </div>
+        </div>
+
+        <!-- JavaScript for Bid Validation -->
+        <script>
+          const productPrice = parseFloat("{{ product.price }}");
+
+          function validateBid() {
+            const bidAmount = parseFloat(
+              document.getElementById("bidAmount").value
+            );
+            const bidButton = document.getElementById("bidButton");
+            const bidError = document.getElementById("bidError");
+
+            if (bidAmount >= productPrice) {
+              bidButton.disabled = false;
+              bidError.style.display = "none";
+            } else {
+              bidButton.disabled = true;
+              bidError.style.display = "block";
+            }
+          }
+        </script>
+
+        <!-- Second Column: Product Details -->
+        <div class="col-md-6">
+          <div class="product-details">
+            <!-- Vehicle Info Section -->
+            <div class="mb-4">
+              <h3>
+                {{ product.year_of_production }} - {{ product.make }} {{
+                product.model }}
+              </h3>
+              <p><strong>Miles:</strong> {{ product.mileage }}</p >
+              <p><strong>Starting Price:</strong> ${{ product.price }}</p >
+            </div>
+
+            <!-- Description Section -->
+            <div class="mb-4">
+              <h4>Description</h4>
+              <p>{{ product.vehicle_description }}</p >
+              <p><strong>Fuel Type:</strong> {{ product.fuel_type }}</p >
+              <p>
+                <strong>Exterior Color:</strong> {{ product.exterior_color }}
+              </p >
+              <p>
+                <strong>Interior Color:</strong> {{ product.interior_color }}
+              </p >
+              <p><strong>State:</strong> {{ product.state }}</p >
+              <p><strong>Zip Code:</strong> {{ product.zip_code }}</p >
+            </div>
+
+            <!-- Seller Section -->
+            <div>
+              <h4>Seller: {{ product.seller_name }}</h4>
+              <p>Rating: {{ product.seller_rating }}</p >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2023 Find Your Car. All Rights Reserved.</p >
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

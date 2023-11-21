@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password
 import uuid 
 from django.contrib import messages
 from django.http import Http404
-
+# 12345
 cur_user = {}
 
 def testmysql(request):
