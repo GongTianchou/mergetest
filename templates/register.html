@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+
+{% block body %}
+
+    <h2>User Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="user_name">User Name:</label><br>
+        <input type="text" id="user_name" name="user_name" required><br>
+
+        <label for="user_type">User Type:</label><br>
+        <select id="user_type" name="user_type" required>
+            <option value="">Select User Type</option>
+            <option value="ADMIN">Admin</option>
+            <option value="NORMAL_USER">General User</option>
+        </select><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+
+        <input type="submit" value="Register">
+    </form>
+
+{% endblock %}

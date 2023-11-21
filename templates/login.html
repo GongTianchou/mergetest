@@ -1,0 +1,14 @@
+{% extends "home.html" %}
+{% block body %}
+
+<h2>User Login</h2>
+<form method="post">
+    {% csrf_token %}
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+
+    <input type="submit" value="Login">
+</form>
+
+{% endblock %}
