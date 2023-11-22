@@ -62,7 +62,7 @@ def login(request):
             # Query the database
             with connection.cursor() as cursor:
                 query = """
-                    SELECT * 
+                    SELECT *
                     FROM USERS
                     WHERE email = %s;
                 """
@@ -304,4 +304,34 @@ def product_detail(request, listing_id):
 
 
 def bid(request, listing_id):
-    return render(request, 'bid.html')
+    with connection.cursor() as cursor:
+        # SQL query to join USERS and LISTED_VEHICLES tables
+        cursor.execute("""
+            SELECT LV.*, U.*
+            FROM LISTED_VEHICLES AS LV
+            JOIN USERS AS U ON LV.seller_id = U.user_id
+            WHERE LV.listing_id = %s
+        """, [listing_id])
+
+        result = cursor.fetchone()
+
+    # Map the result to a dictionary for easy access in the template
+    product_dict = {
+        'image_url': result[4],
+        'make': result[6],
+        'model': result[7],
+        'price': result[11],
+    }
+    if request.method == 'POST':
+        # Process the bid amount
+        bid_amount = float(request.POST['bid_amount'])
+
+        # Check if the bid amount is valid
+        if bid_amount >= product_dict['price']:
+            # Process the bid
+            # ...
+
+            # Redirect back to the product page
+            return redirect('product_detail', listing_id=listing_id)
+
+    return render(request, 'bid.html', {'product': product_dict})
