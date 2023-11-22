@@ -27,4 +27,6 @@ urlpatterns = [
     path('search', views.search_car),
     path('product/<int:listing_id>/', views.product_detail, name='product_detail'),
     path('product/<int:listing_id>/bid', views.bid, name='bid'),
+    path('bid_success', views.bid_success, name='bid_success'),
+    path('chatbot', views.chatbot, name='chatbot'),
 ]

@@ -1,10 +1,13 @@
+from django.db import IntegrityError
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.contrib.auth.hashers import make_password
 import uuid
 from django.contrib import messages
 from django.http import Http404
-# 12345
+import openai
+
 cur_user = {}
 
 
@@ -246,7 +249,10 @@ def product_detail(request, listing_id):
         raise Http404("Product does not exist")
 
     # Check if the current user has bid on this product
-    current_user_id = request.user.id
+
+    # need modification
+    # hardcoded
+    current_user_id = 2
     with connection.cursor() as cursor:
         cursor.execute("""
             SELECT bidding_amount FROM BIDDINGS
@@ -295,7 +301,7 @@ def product_detail(request, listing_id):
             # If the bid is successfully placed, add a success message
             messages.success(request, 'Bid placed successfully!')
             # Redirect to the same page to display the success message
-            return redirect('product_detail', listing_id=listing_id)
+            return redirect('bid_success', listing_id=listing_id, user_id=request.user.id)
         # If the bid is not successful, you might want to add an error message and
         # handle it accordingly
 
@@ -304,34 +310,88 @@ def product_detail(request, listing_id):
 
 
 def bid(request, listing_id):
+    if request.method == 'POST':
+        try:
+            bid_amount = float(request.POST['bid_amount'])
+
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT price FROM LISTED_VEHICLES WHERE listing_id = %s", [listing_id])
+                product_price = cursor.fetchone()
+                if not product_price or bid_amount < product_price[0]:
+                    # Handle bid amount lower than product price
+                    return render(request, 'error.html', {'error_message': 'Bid amount must be higher than the product price'})
+
+                cursor.execute("SELECT MAX(bidding_id) FROM BIDDINGS")
+                max_id_result = cursor.fetchone()
+                new_bidding_id = max_id_result[0] + \
+                    1 if max_id_result[0] else 1
+
+                cursor.execute("""
+                    INSERT INTO BIDDINGS (bidding_id, listing_id, user_id, bidding_amount, bidding_date, is_winner)
+                    VALUES (%s, %s, 2, %s, %s, %s)
+                """, [new_bidding_id, listing_id, bid_amount, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), False])
+                connection.commit()
+
+            return redirect('product_detail', listing_id=listing_id)
+        except IntegrityError as e:
+            print(e)
+            # Handle the error, perhaps show a message to the user
+
     with connection.cursor() as cursor:
-        # SQL query to join USERS and LISTED_VEHICLES tables
         cursor.execute("""
             SELECT LV.*, U.*
             FROM LISTED_VEHICLES AS LV
-            JOIN USERS AS U ON LV.seller_id = U.user_id
+            JOIN USERS AS U ON LV.seller_id = U.user_id 
             WHERE LV.listing_id = %s
         """, [listing_id])
 
         result = cursor.fetchone()
 
-    # Map the result to a dictionary for easy access in the template
     product_dict = {
+        # Assuming these indices are correct
         'image_url': result[4],
         'make': result[6],
         'model': result[7],
         'price': result[11],
     }
-    if request.method == 'POST':
-        # Process the bid amount
-        bid_amount = float(request.POST['bid_amount'])
 
-        # Check if the bid amount is valid
-        if bid_amount >= product_dict['price']:
-            # Process the bid
-            # ...
+    return render(request, 'bid.html', {'product': product_dict, 'listing_id': listing_id})
 
-            # Redirect back to the product page
-            return redirect('product_detail', listing_id=listing_id)
 
-    return render(request, 'bid.html', {'product': product_dict})
+def bid_success(request, listing_id):
+    # need modification
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT *
+            FROM BIDDINGS 
+            WHERE listing_id = %s
+        """, [listing_id])
+
+        result = cursor.fetchone()
+
+    # Map the result to a dictionary for easy access in the template
+    bidding_dict = {
+        'bidding_amount': result[3],
+    }
+
+    return render(request, 'bid.html', {'bidding': bidding_dict})
+
+
+def chatbot(request):
+    # need modification
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT *
+            FROM BIDDINGS 
+            WHERE listing_id = %s
+        """, [listing_id])
+
+        result = cursor.fetchone()
+
+    # Map the result to a dictionary for easy access in the template
+    bidding_dict = {
+        'bidding_amount': result[3],
+    }
+
+    return render(request, 'chatbot.html', {'bidding': bidding_dict})

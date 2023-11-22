@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Interface</title>
+    <style>
+      /* Basic styling for chat interface */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #chatContainer {
+        width: 80%;
+        margin: 20px auto;
+      }
+      #chatBox {
+        height: 400px;
+        border: 1px solid #ddd;
+        overflow-y: scroll;
+        padding: 10px;
+      }
+      #messageInput {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chatContainer">
+      <div id="chatBox"></div>
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Type your message here..."
+      />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+      function sendMessage() {
+        var message = document.getElementById("messageInput").value;
+        var chatBox = document.getElementById("chatBox");
+
+        // Append user message to chat
+        chatBox.innerHTML += "<div>User: " + message + "</div>";
+
+        // AJAX call to send the message to the backend
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/path-to-your-django-view/", true);
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken")); // CSRF token for Django
+        xhr.onreadystatechange = function () {
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // Handle the response
+            var response = JSON.parse(this.responseText);
+            chatBox.innerHTML += "<div>Bot: " + response.response + "</div>";
+          }
+        };
+        xhr.send("message=" + encodeURIComponent(message));
+
+        // Clear the input field
+        document.getElementById("messageInput").value = "";
+      }
+
+      // Function to get CSRF token for Django
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    </script>
+  </body>
+</html>

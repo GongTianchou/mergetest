@@ -16,8 +16,13 @@
     >
       <div class="col-md-6">
         <h1 class="text-center mb-3">Place Your Bid Here</h1>
-        <form>
+        <form method="post" action="{% url 'bid' listing_id=listing_id %}">
+          {% csrf_token %}
           <div class="mb-3">
+            <label for="startingPrice" class="form-label"
+              >Starting price: {{ product.price }}</label
+            >
+            <br />
             <label for="bidAmount" class="form-label">Bid Amount</label>
             <div class="mb-3">
               <input
@@ -28,9 +33,9 @@
                 placeholder="Enter your bid"
                 oninput="validateBid()"
               />
-              <small id="bidError" class="text-danger" style="display: none"
-                >Bid must be higher than the product price.</small
-              >
+              <small id="bidError" class="text-danger" style="display: none">
+                Bid must be higher than the product price.
+              </small>
             </div>
           </div>
           <button type="submit" class="btn btn-primary" id="bidButton">
