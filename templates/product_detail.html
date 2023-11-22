@@ -60,7 +60,7 @@
           <!-- Bidding Section -->
           <div class="bidding-section">
             <h4>Bid</h4>
-            <button>Place your bid</button>
+            <button><a href="bid">Place your bid</a> your bid</button>
 
             <!-- Display Current Bid Amount -->
             <p>
@@ -68,7 +68,7 @@
               <span id="currentBid"
                 >{{ product.current_bid|default:"N/A" }}</span
               >
-            </p >
+            </p>
           </div>
         </div>
 
@@ -102,29 +102,29 @@
                 {{ product.year_of_production }} - {{ product.make }} {{
                 product.model }}
               </h3>
-              <p><strong>Miles:</strong> {{ product.mileage }}</p >
-              <p><strong>Starting Price:</strong> ${{ product.price }}</p >
+              <p><strong>Miles:</strong> {{ product.mileage }}</p>
+              <p><strong>Starting Price:</strong> ${{ product.price }}</p>
             </div>
 
             <!-- Description Section -->
             <div class="mb-4">
               <h4>Description</h4>
-              <p>{{ product.vehicle_description }}</p >
-              <p><strong>Fuel Type:</strong> {{ product.fuel_type }}</p >
+              <p>{{ product.vehicle_description }}</p>
+              <p><strong>Fuel Type:</strong> {{ product.fuel_type }}</p>
               <p>
                 <strong>Exterior Color:</strong> {{ product.exterior_color }}
-              </p >
+              </p>
               <p>
                 <strong>Interior Color:</strong> {{ product.interior_color }}
-              </p >
-              <p><strong>State:</strong> {{ product.state }}</p >
-              <p><strong>Zip Code:</strong> {{ product.zip_code }}</p >
+              </p>
+              <p><strong>State:</strong> {{ product.state }}</p>
+              <p><strong>Zip Code:</strong> {{ product.zip_code }}</p>
             </div>
 
             <!-- Seller Section -->
             <div>
               <h4>Seller: {{ product.seller_name }}</h4>
-              <p>Rating: {{ product.seller_rating }}</p >
+              <p>Rating: {{ product.seller_rating }}</p>
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="footer">
-      <p>&copy; 2023 Find Your Car. All Rights Reserved.</p >
+      <p>&copy; 2023 Find Your Car. All Rights Reserved.</p>
     </div>
 
     <!-- Bootstrap JS -->

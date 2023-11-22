@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.contrib.auth.hashers import make_password
-import uuid 
+import uuid
 from django.contrib import messages
 from django.http import Http404
 # 12345
 cur_user = {}
+
 
 def testmysql(request):
     # with connection.cursor() as cursor:
@@ -24,6 +25,7 @@ def testmysql(request):
         'user_name': user_name,
     }
     return render(request, 'home.html', context)
+
 
 def register(request):
     if request.method == "POST":
@@ -50,6 +52,7 @@ def register(request):
     # Render the registration form for both GET and POST requests
     return render(request, 'register.html')
 
+
 def login(request):
     if request.method == "POST":
         try:
@@ -63,7 +66,8 @@ def login(request):
                     FROM USERS
                     WHERE email = %s;
                 """
-                cursor.execute(query, [user_email])  # Pass parameters as a list
+                cursor.execute(query, [user_email]
+                               )  # Pass parameters as a list
                 t = cursor.fetchall()
                 if not t:
                     return render(request, 'error.html')
@@ -90,11 +94,13 @@ def logout(request):
     request.session.flush()
     return redirect('home')
 
+
 def profile(request):
 
     return render(request, 'profile.html')
 
-def searchCar(request):
+
+def search_car(request):
     # Fetch unique values for dropdowns from the database
     with connection.cursor() as cursor:
         cursor.execute(
@@ -134,7 +140,7 @@ def searchCar(request):
 
     # If there's an error, return early with the error message
     if error_message:
-        return render(request, 'searchCar.html', {'error_message': error_message})
+        return render(request, 'search_car.html', {'error_message': error_message})
 
 # Initialize the base query
     query = "SELECT * FROM LISTED_VEHICLES WHERE 1=1"
@@ -210,7 +216,7 @@ def searchCar(request):
         for row in cursor.fetchall():
             vehicles.append(dict(zip(columns, row)))
 
-    return render(request, 'searchCar.html', {
+    return render(request, 'search_car.html', {
         'vehicles': vehicles,
         'makes': makes,
         'years': years,
@@ -295,3 +301,7 @@ def product_detail(request, listing_id):
 
     # For GET requests or if the bid placement is not successful, render the page with product details
     return render(request, 'product_detail.html', {'product': product_dict})
+
+
+def bid(request, listing_id):
+    return render(request, 'bid.html')
