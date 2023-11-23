@@ -1,3 +1,7 @@
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
 from django.db import IntegrityError
 from datetime import datetime
 from django.shortcuts import render, redirect
@@ -7,6 +11,14 @@ import uuid
 from django.contrib import messages
 from django.http import Http404
 import openai
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the API key
+api_key = os.getenv('MY_API_KEY')
 
 cur_user = {}
 
@@ -377,21 +389,28 @@ def bid_success(request, listing_id):
 
     return render(request, 'bid.html', {'bidding': bidding_dict})
 
+# views.py
+
 
 def chatbot(request):
-    # need modification
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            SELECT *
-            FROM BIDDINGS 
-            WHERE listing_id = %s
-        """, [listing_id])
+    # Render the chat interface page
+    return render(request, 'chatbot.html')
 
-        result = cursor.fetchone()
 
-    # Map the result to a dictionary for easy access in the template
-    bidding_dict = {
-        'bidding_amount': result[3],
-    }
+@csrf_exempt
+@require_POST
+def chat(request):
+    data = json.loads(request.body)
+    user_message = data.get('message')
 
-    return render(request, 'chatbot.html', {'bidding': bidding_dict})
+    # You need to configure your OpenAI API key
+    openai.api_key = api_key
+
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": user_message}]
+        )
+        return JsonResponse({'response': response.choices[0].message['content']})
+    except Exception as e:
+        return JsonResponse({'response': str(e)}, status=500)

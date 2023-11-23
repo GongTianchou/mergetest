@@ -3,78 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chatbot Interface</title>
+    <title>Chat with OpenAI</title>
     <style>
-      /* Basic styling for chat interface */
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      #chatContainer {
-        width: 80%;
-        margin: 20px auto;
-      }
-      #chatBox {
-        height: 400px;
-        border: 1px solid #ddd;
-        overflow-y: scroll;
+      #chatWindow {
+        height: 300px;
+        border: 1px solid #ccc;
         padding: 10px;
+        overflow-y: scroll;
       }
-      #messageInput {
+      #userInput {
         width: 100%;
         padding: 10px;
-        box-sizing: border-box;
       }
     </style>
   </head>
   <body>
-    <div id="chatContainer">
-      <div id="chatBox"></div>
-      <input
-        type="text"
-        id="messageInput"
-        placeholder="Type your message here..."
-      />
-      <button onclick="sendMessage()">Send</button>
-    </div>
+    <div id="chatWindow"></div>
+    <input type="text" id="userInput" placeholder="Type your message here..." />
+    <button onclick="sendMessage()">Send</button>
 
     <script>
       function sendMessage() {
-        var message = document.getElementById("messageInput").value;
-        var chatBox = document.getElementById("chatBox");
+        var input = document.getElementById("userInput");
+        var message = input.value.trim();
+        if (message === "") return;
 
-        // Append user message to chat
-        chatBox.innerHTML += "<div>User: " + message + "</div>";
+        addMessage("User: " + message);
+        input.value = "";
 
-        // AJAX call to send the message to the backend
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/path-to-your-django-view/", true);
-        xhr.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken")); // CSRF token for Django
-        xhr.onreadystatechange = function () {
-          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // Handle the response
-            var response = JSON.parse(this.responseText);
-            chatBox.innerHTML += "<div>Bot: " + response.response + "</div>";
-          }
-        };
-        xhr.send("message=" + encodeURIComponent(message));
-
-        // Clear the input field
-        document.getElementById("messageInput").value = "";
+        fetch("/chat/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({ message: message }),
+        })
+          .then((response) => response.json())
+          .then((data) => addMessage("AI: " + data.response))
+          .catch((error) => console.error("Error:", error));
       }
 
-      // Function to get CSRF token for Django
+      function addMessage(text) {
+        var chatWindow = document.getElementById("chatWindow");
+        chatWindow.innerHTML += "<p>" + text + "</p>";
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+
       function getCookie(name) {
-        var cookieValue = null;
+        let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
-          var cookies = document.cookie.split(";");
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
             if (cookie.substring(0, name.length + 1) === name + "=") {
               cookieValue = decodeURIComponent(
                 cookie.substring(name.length + 1)

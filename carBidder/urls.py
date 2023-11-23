@@ -29,4 +29,5 @@ urlpatterns = [
     path('product/<int:listing_id>/bid', views.bid, name='bid'),
     path('bid_success', views.bid_success, name='bid_success'),
     path('chatbot', views.chatbot, name='chatbot'),
+    path('chat/', views.chat, name='chat'),
 ]
