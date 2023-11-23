@@ -22,17 +22,25 @@ INSERT INTO LISTED_VEHICLES (listing_id, vehicle_id, VIN, seller_id, image_url, 
 (1, 1001, 'VIN000000000001', 2, 'https://pictures.dealer.com/t/tracyvolkswagencavw/1306/1e1c691cfd9c667b7da055c3e23486dcx.jpg?impolicy=resize&w=1024', 'Good Condition', 'Toyota', 'Camry', 'Gas', 2019, 10000, 20000, 'Red', 'Black', 'CA', '90001', TRUE, '2023-01-01 10:00:00', '2023-01-10 10:00:00', FALSE),
 (2, 1002, 'VIN000000000002', 3, 'https://www.motortrend.com/uploads/2022/12/2022-honda-civic-hybrid-01.jpg?fit=around%7C875:492', 'Almost New', 'Honda', 'Civic', 'Gas', 2021, 5000, 18000, 'Blue', 'Gray', 'TX', '75001', NULL, '2023-01-05 09:00:00', '2023-01-20 09:00:00', FALSE),
 (3, 1003, 'VIN000000000003', 4, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuH4LFp0HjXOEaGur234PzOUpSf8xj-KH8gw&usqp=CAU', 'Used', 'BMW', 'X3', 'Diesel', 2018, 15000, 30000, 'White', 'Black', 'NY', '10001', TRUE, '2023-01-07 08:00:00', '2023-01-30 08:00:00', FALSE),
-(4, 1004, 'VIN000000000004', 5, 'https://www.primemotorz.com/imagetag/509/main/l/Used-2016-Mercedes-Benz-C-Class-C300-AWD-C-300-Luxury-4MATIC-1602012288.jpg', 'Old but gold', 'Mercedes', 'C-Class', 'Gas', 2016, 20000, 25000, 'Black', 'White', 'FL', '32004', NULL, '2023-01-10 07:00:00', '2023-01-25 07:00:00', TRUE),
+(4, 1004, 'VIN000000000004', 5, 'https://www.primemotorz.com/imagetag/509/main/l/Used-2016-Mercedes-Benz-C-Class-C300-AWD-C-300-Luxury-4MATIC-1602012288.jpg', 'Old but gold', 'Mercedes', 'C-Class', 'Gas', 2016, 20000, 25000, 'Black', 'White', 'FL', '32004', NULL, '2023-11-10 07:00:00', '2023-12-25 07:00:00', TRUE),
 (5, 1005, 'VIN000000000005', 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVHWMTTgBo51S0Y9psy-HqUTcY2DTYGly-1w&usqp=CAU', 'Reliable', 'Nissan', 'Altima', 'Gas', 2020, 7000, 18000, 'Silver', 'Gray', 'TX', '75003', TRUE, '2023-01-12 06:00:00', '2023-01-28 06:00:00', FALSE),
-(6, 1006, 'VIN000000000006', 7, 'https://content.homenetiol.com/1280x960/1c0a6bb6d0974b6ca529f48cd2280f47.jpg', 'Sporty', 'Ford', 'Mustang', 'Gas', 2019, 10000, 28000, 'Yellow', 'Black', 'NV', '89001', NULL, '2023-01-14 11:00:00', '2023-01-29 11:00:00', TRUE),
+(6, 1006, 'VIN000000000006', 7, 'https://content.homenetiol.com/1280x960/1c0a6bb6d0974b6ca529f48cd2280f47.jpg', 'Sporty', 'Ford', 'Mustang', 'Gas', 2019, 10000, 28000, 'Yellow', 'Black', 'NV', '89001', NULL, '2023-11-14 11:00:00', '2023-12-29 11:00:00', TRUE),
 (7, 1007, 'VIN000000000007', 8, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAOpCjhzwv1KGzFv3kqzDP-YnNMeyxRkPDA&usqp=CAU', 'Compact', 'Chevrolet', 'Spark', 'Gas', 2022, 2000, 14000, 'Green', 'Gray', 'WA', '98001', TRUE, '2023-01-15 10:00:00', '2023-01-31 10:00:00', FALSE),
 (8, 1008, 'VIN000000000008', 9, 'https://res2.grays.com/handlers/imagehandler.ashx?t=sh&id=34701951&s=d&index=0&ts=637848517050000000', 'Sport Edition', 'Audi', 'A3', 'Gas', 2019, 8500, 27000, 'Gray', 'Black', 'IL', '60001', TRUE, '2023-02-01 10:00:00', '2023-02-15 10:00:00', FALSE),
 (9, 1009, 'VIN000000000009', 9, 'https://cdn.jdpower.com/jdpa_2022%20volkswagen%20golf%20r%20blue%20front%20quarter%20view%201.jpg', 'New Model', 'Volkswagen', 'Golf', 'Gas', 2022, 1000, 23000, 'Blue', 'Beige', 'NC', '28001', TRUE, '2023-02-03 09:00:00', '2023-02-18 09:00:00', FALSE),
-(10, 1010, 'VIN000000000010', 10, 'https://www.cnet.com/a/img/resize/689c6db468d75b66d4422d72afcc5454e2d1c2f2/hub/2021/03/05/482061ec-7587-408c-9c32-4825c6a8dc16/2021-hyundai-elantra-sel-3.jpg?auto=webp&width=1200', 'Economy Car', 'Hyundai', 'Elantra', 'Gas', 2021, 4500, 19000, 'White', 'Brown', 'TX', '76001', TRUE, '2023-02-05 08:00:00', '2023-02-20 08:00:00', TRUE),
-(11, 1011, 'VIN000000000011', 10, 'https://content.homenetiol.com/2000292/2143540/0x0/67259817c6a04f56a237ba72dcb08b2b.jpg', 'City Car', 'Kia', 'Rio', 'Gas', 2022, 2000, 17000, 'Black', 'Red', 'GA', '30001', TRUE, '2023-02-07 09:00:00', '2023-02-22 09:00:00', TRUE),
-(12, 1012, 'VIN000000000012', 11, 'https://content.homenetiol.com/2000292/2143540/0x0/6e265655b47a46779f4f057fcdd680ae.jpg', 'Luxury SUV', 'Lexus', 'RX', 'Hybrid', 2018, 10000, 40000, 'Silver', 'Black', 'CA', '94001', TRUE, '2023-02-09 10:00:00', '2023-02-24 10:00:00', TRUE),
-(13, 1013, 'VIN000000000013', 11, 'https://www.tothakron.com/inventoryphotos/10557/1c4bjwdg1hl534358/ip/3.jpg?bg-color=FFFFFF&width=400%20400w', 'Off-road', 'Jeep', 'Wrangler', 'Diesel', 2017, 12000, 32000, 'Green', 'Black', 'AZ', '85001', TRUE, '2023-02-11 11:00:00', '2023-02-26 11:00:00', TRUE),
-(14, 1014, 'VIN000000000014', 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0FjJA3g_QD7H2oj8z4iQukiRLx-a2pjjqg&usqp=CAU', 'Electric Sedan', 'Tesla', 'Model 3', 'Electric', 2020, 8000, 35000, 'Red', 'White', 'OR', '97001', TRUE, '2023-02-13 12:00:00', '2023-02-28 12:00:00', TRUE);
+(10, 1010, 'VIN000000000010', 10, 'https://www.cnet.com/a/img/resize/689c6db468d75b66d4422d72afcc5454e2d1c2f2/hub/2021/03/05/482061ec-7587-408c-9c32-4825c6a8dc16/2021-hyundai-elantra-sel-3.jpg?auto=webp&width=1200', 'Economy Car', 'Hyundai', 'Elantra', 'Gas', 2021, 4500, 19000, 'White', 'Brown', 'TX', '76001', TRUE, '2023-11-15 08:00:00', '2023-12-20 08:00:00', TRUE),
+(11, 1011, 'VIN000000000011', 10, 'https://content.homenetiol.com/2000292/2143540/0x0/67259817c6a04f56a237ba72dcb08b2b.jpg', 'City Car', 'Kia', 'Rio', 'Gas', 2022, 2000, 17000, 'Black', 'Red', 'GA', '30001', TRUE, '2023-11-16 09:00:00', '2023-12-22 09:00:00', TRUE),
+(12, 1012, 'VIN000000000012', 11, 'https://content.homenetiol.com/2000292/2143540/0x0/6e265655b47a46779f4f057fcdd680ae.jpg', 'Luxury SUV', 'Lexus', 'RX', 'Hybrid', 2018, 10000, 40000, 'Silver', 'Black', 'CA', '94001', TRUE, '2023-11-09 10:00:00', '2023-12-24 10:00:00', TRUE),
+(13, 1013, 'VIN000000000013', 11, 'https://www.tothakron.com/inventoryphotos/10557/1c4bjwdg1hl534358/ip/3.jpg?bg-color=FFFFFF&width=400%20400w', 'Off-road', 'Jeep', 'Wrangler', 'Diesel', 2017, 12000, 32000, 'Green', 'Black', 'AZ', '85001', TRUE, '2023-11-11 11:00:00', '2023-12-26 11:00:00', TRUE),
+(14, 1014, 'VIN000000000014', 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0FjJA3g_QD7H2oj8z4iQukiRLx-a2pjjqg&usqp=CAU', 'Electric Sedan', 'Tesla', 'Model 3', 'Electric', 2020, 8000, 35000, 'Red', 'White', 'OR', '97001', TRUE, '2023-11-13 12:00:00', '2023-12-28 12:00:00', TRUE),
+(15, 1001, 'VIN0000000000015', 2, 'https://pictures.dealer.com/t/tracyvolkswagencavw/1306/1e1c691cfd9c667b7da055c3e23486dcx.jpg?impolicy=resize&w=1024', 'Good Condition', 'Toyota', 'Camry', 'Gas', 2019, 10000, 20000, 'Red', 'Black', 'CA', '90001', TRUE, '2023-11-01 10:00:00', '2023-12-15 10:00:00', TRUE),
+(16, 1002, 'VIN0000000000016', 3, 'https://www.motortrend.com/uploads/2022/12/2022-honda-civic-hybrid-01.jpg?fit=around%7C875:492', 'Almost New', 'Honda', 'Civic', 'Gas', 2021, 5000, 18000, 'Blue', 'Gray', 'TX', '75001', NULL, '2023-11-05 09:00:00', '2023-12-20 09:00:00', TRUE),
+(17, 1003, 'VIN0000000000017', 4, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuH4LFp0HjXOEaGur234PzOUpSf8xj-KH8gw&usqp=CAU', 'Used', 'BMW', 'X3', 'Diesel', 2018, 15000, 30000, 'White', 'Black', 'NY', '10001', TRUE, '2023-11-07 08:00:00', '2023-12-30 08:00:00', TRUE),
+(18, 1005, 'VIN0000000000018', 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVHWMTTgBo51S0Y9psy-HqUTcY2DTYGly-1w&usqp=CAU', 'Reliable', 'Nissan', 'Altima', 'Gas', 2020, 7000, 18000, 'Silver', 'Gray', 'TX', '75003', TRUE, '2023-11-12 06:00:00', '2023-12-28 06:00:00', TRUE),
+(19, 1007, 'VIN0000000000019', 8, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAOpCjhzwv1KGzFv3kqzDP-YnNMeyxRkPDA&usqp=CAU', 'Compact', 'Chevrolet', 'Spark', 'Gas', 2022, 2000, 14000, 'Green', 'Gray', 'WA', '98001', TRUE, '2023-11-15 10:00:00', '2023-12-31 10:00:00', TRUE),
+(20, 1008, 'VIN0000000000020', 9, 'https://res2.grays.com/handlers/imagehandler.ashx?t=sh&id=34701951&s=d&index=0&ts=637848517050000000', 'Sport Edition', 'Audi', 'A3', 'Gas', 2019, 8500, 27000, 'Gray', 'Black', 'IL', '60001', TRUE, '2023-11-21 10:00:00', '2023-12-15 10:00:00', TRUE),
+(21, 1009, 'VIN0000000000021', 9, 'https://cdn.jdpower.com/jdpa_2022%20volkswagen%20golf%20r%20blue%20front%20quarter%20view%201.jpg', 'New Model', 'Volkswagen', 'Golf', 'Gas', 2022, 1000, 23000, 'Blue', 'Beige', 'NC', '28001', TRUE, '2023-11-22 09:00:00', '2023-12-18 09:00:00', TRUE),
+(111, 100111, 'VIN00000000000111', 9, 'https://cdn.jdpower.com/jdpa_2022%20volkswagen%20golf%20r%20blue%20front%20quarter%20view%201.jpg', 'New Model', 'Volkswagen', 'Golf', 'Gas', 2022, 1000, 23000, 'Blue', 'Beige', 'NC', '28001', TRUE, '2023-11-22 09:00:00', '2023-11-23 10:50:00', TRUE);
 
 
 -- BIDDINGS Table
@@ -46,9 +54,10 @@ INSERT INTO BIDDINGS (bidding_id, listing_id, user_id, bidding_amount, bidding_d
 (7, 7, 3, 14300.00, '2023-01-18 19:00:00', TRUE),
 (8, 8, 2, 27250.00, '2023-02-02 16:00:00', TRUE),
 (9, 9, 6, 23250.00, '2023-02-04 17:00:00', TRUE),
-(10, 4, 8, 25250.00, '2023-01-11 14:00:00', NULL),  
-(11, 6, 9, 28500.00, '2023-01-15 14:00:00', NULL),
-(12, 10, 3, 19300.00, '2023-02-06 18:00:00', NULL);
+(10, 4, 8, 25250.00, '2023-11-11 14:00:00', NULL),  
+(11, 6, 9, 28500.00, '2023-11-15 14:00:00', NULL),
+(12, 10, 3, 19300.00, '2023-11-20 18:00:00', NULL),
+(13, 111, 3, 25000.00, '2023-11-22 18:00:00', NULL);
 
 
 -- RATINGS Table
@@ -70,7 +79,7 @@ INSERT INTO VEHICLE_ORDERS (order_id, listing_id, buyer_id, seller_id, order_pri
 (4, 5, 7, 6, 18250.00, '2023-01-13 14:00:00', 10004, 1, 0),
 (5, 7, 3, 8, 14300.00, '2023-01-18 20:00:00', 10005, 1, 1),
 (6, 8, 2, 9, 27250.00, '2023-02-02 17:00:00', 10006, 1, 0),
-(7, 9, 6, 9, 23250.00, '2023-02-04 18:00:00', 10007, 1, 0);
+(7, 9, 6, 9, 23250.00, '2023-11-20 18:00:00', 10007, 1, 0);
 
 
 -- CHATS Table
@@ -107,6 +116,7 @@ INSERT INTO BALANCE_TRANSACTIONS (transaction_id, user_id, current_balance, date
 (14, 9, 90500.00, '2023-02-04 18:00:00', 'receive', 23250.00),
 (15, 10, 50000.00, '2023-02-05 11:00:00', 'pop_up', 10000.00),
 (16, 11, 35000.00, '2023-02-07 09:00:00', 'withdraw', 5000.00);
+
 
 
 -- VIOLATION_REPORTS Table
