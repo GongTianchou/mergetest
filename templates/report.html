@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% block body %}
+<div class="container mt-4">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Report ID</th>
+                <th>User ID</th>
+                <th>Report Content</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in violation_reports %}
+                <tr>
+                    <td>{{ report.0 }}</td>
+                    <td>{{ report.1 }}</td>
+                    <td>{{ report.2 }}</td>
+                    <td>
+                        <form method="post" action="{% url 'report' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="report_id_to_delete" value="{{ report.0 }}">
+                            <button type="submit" class="btn btn-primary btn-sm">Resolve</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -5,12 +5,11 @@
     <head>
         <title>{% block title %}Car Bidder{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h1>Car Bidder</h1>
-        <div>
+        <h1 style="text-align: center;">Car Bidder</h1>
+        <div style="text-align: center;">
             {% if user_name %}
                 Signed in as <strong>{{ user_name }}</strong>.
                 User type is <strong>{{ user_type }}</strong>.
@@ -19,29 +18,51 @@
             {% endif %}
         </div>
         <ul class="nav nav-pills nav-fill">
-          <li class="nav-item">
-               <a class="nav-link">Active Listings</a>
-           </li>
 
            <li class="nav-item">
-               <a class="nav-link">Search</a>
+               <a class="nav-link" href="{% url 'search_car' %}">Search</a>
            </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'chatbot' %}">Chatbot</a>
+            </li>
             {% if user_name %}
+             </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_page == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+                </li>
+
+                {% if user_type == "ADMIN" %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_page == 'violation_reports' %}active{% endif %}" href="{% url 'report' %}">Violation Report</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_page == 'users' %}active{% endif %}" href="{% url 'users' %}">Users</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_page == 'verify_vehicles' %}active{% endif %}" href="{% url 'verify_vehicles' %}">Vehicles Verification</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_page == 'weekly_reports' %}active{% endif %}" href="{% url 'weekly_reports' %}">Weekly Reports</a>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_page == 'orders' %}active{% endif %}" href="{% url 'orders' %}">Orders</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link">Profile</a>
-                </li>
-
-
+                
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    <a class="nav-link {% if current_page == 'login' %}active{% endif %}" href="{% url 'login' %}">Log In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    <a class="nav-link {% if current_page == 'register' %}active{% endif %}" href="{% url 'register' %}">Register</a>
                 </li>
             {% endif %}
         </ul>

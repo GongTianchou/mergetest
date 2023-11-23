@@ -13,6 +13,9 @@ DROP VIEW IF EXISTS Top10RatedSeller;
 
 # Drop function if tables are exist
 Drop PROCEDURE GetHighestBidDetails;
+dROP procedure GetHighestBid;
+drop procedure UpdateExpiredListings;
+
 
 -- Drop triggers if triggers are exist
 DROP TRIGGER IF EXISTS update_user_ratings;

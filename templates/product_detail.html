@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends "home.html" %} {% block body %} {% if user_name %}
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -101,8 +103,7 @@
             <!-- Vehicle Info Section -->
             <div class="mb-4">
               <h3>
-                {{ product.year_of_production }} - {{ product.make }} {{
-                product.model }}
+                {{ product.year_of_production }} - {{ product.make }} {{ product.model }}
               </h3>
               <p><strong>Miles:</strong> {{ product.mileage }}</p>
               <p><strong>Starting Price:</strong> ${{ product.price }}</p>
@@ -141,3 +142,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+{% else %}
+<div class="container mt-4">
+  <p>You need to sign in to view this page.</p>
+</div>
+{% endif %} {% endblock %}

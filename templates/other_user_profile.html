@@ -1,0 +1,36 @@
+{% extends "home.html" %}
+{% block body %}
+<h2 style="text-align: center;">{{ user_details.0 }} Profile</h2>
+</br>
+    <!-- User Details Table -->
+    <ul>
+        <li style="text-align: center;"><strong>Seller Rating:</strong> {{ user_details.1 }}</li>
+        <li style="text-align: center;"><strong>Buyer Rating:</strong> {{ user_details.2 }}</li>
+    </ul>
+    </br>
+
+    <!-- Listed Vehicles Table -->
+    <h2>Listed Vehicles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Listing ID</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year of Production</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicle in listed_vehicles %}
+                <tr>
+                    <td>{{ vehicle.0 }}</td>
+                    <td>{{ vehicle.1 }}</td>
+                    <td>{{ vehicle.2 }}</td>
+                    <td>{{ vehicle.3 }}</td>
+                    <td><img src="{{ vehicle.4 }}" alt="{{ vehicle.1 }} {{ vehicle.2 }}" width="200"></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

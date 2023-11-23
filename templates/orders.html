@@ -1,0 +1,86 @@
+{% extends "home.html" %}
+{% block body %}
+<style>
+    /* Apply some basic styles to the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    /* Style the table header */
+    table th {
+        background-color: #f2f2f2;
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    /* Style table rows alternately for better readability */
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Style table data cells */
+    table td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    /* Style the "Resolve" button */
+    table button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    /* Adjust button appearance on hover */
+    table button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<h3>Your Orders</h3>
+{% if orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Listing ID</th>
+                <th>Image</th>
+                <th>Order Price</th>
+                <th>Order Date</th>
+                <th>Is Shipped</th>
+                <th>Tracking Number</th>
+                <th>Is Paid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.0 }}</td>
+                <td>{{ order.1 }}</td>
+                <td><img src="{{ order.2 }}" alt="Vehicle Image" style="width:100px; height:auto;"></td>
+                <td>$ {{ order.3 }}</td>
+                <td>{{ order.4 }}</td>
+                <td>{{ order.5|yesno:"Yes,No" }}</td>
+                <td>
+                    {% if order.5 %}
+                        {{ order.6 }}
+                    {% else %}
+                        Not Shipped Yet
+                    {% endif %}
+                </td>
+                <td>{{ order.7|yesno:"Yes,No" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no orders.</p>
+{% endif %}
+
+{% endblock %}

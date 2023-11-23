@@ -1,0 +1,89 @@
+{% extends "home.html" %}
+{% block body %}
+<div class="container mt-4">
+
+    <!-- Sales Report Form -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">Sales Report</h5>
+        </div>
+        <div id="salesReportSection" class="">
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="startDate">Start Date:</label>
+                            <input type="date" class="form-control" id="startDate" name="start_date" value="{{ start_date }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="endDate">End Date:</label>
+                            <input type="date" class="form-control" id="endDate" name="end_date" value="{{ end_date }}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Report</button>
+                </form>
+                {% if report_data %}
+                <p><strong>Total Sales Amount:</strong> {{ report_data.0 }}<br>
+                <strong>Total Number of Sales:</strong> {{ report_data.1 }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 5 popilar listed vehicle -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">Top 5 Listed Vehicles</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" class="form-control" id="vehicleStartDate" name="vehicle_start_date" value="{{ vehicle_start_date }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="endDate">End Date:</label>
+                        <input type="date" class="form-control" id="vehicleEndDate" name="vehicle_end_date" value="{{ vehicle_end_date }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Get Report</button>
+            </form>
+            {% if popular_vehicles %}
+                <ul class="list-group">
+                    {% for vehicle in popular_vehicles %}
+                        <li class="list-group-item">
+                            <strong>{{ vehicle.1 }} {{ vehicle.2 }} ({{ vehicle.3 }})</strong> - Listing ID: {{ vehicle.0 }}, Bids: {{ vehicle.4 }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No popular vehicle listings found for the selected date range.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Top 10 Sellers -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">Top 10 Sellers</h5>
+        </div>
+        <div class="card-body">
+            {% if top_sellers %}
+            <ul class="list-group">
+                {% for seller in top_sellers %}
+                <li class="list-group-item">
+                    <strong>{{ seller.1 }}</strong> (Rating: {{ seller.2 }}, Number of Ratings: {{ seller.3 }})
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No sellers to display.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

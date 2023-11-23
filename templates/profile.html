@@ -1,0 +1,197 @@
+{% extends "home.html" %}
+{% block body %}
+<style>
+    /* Apply some basic styles to the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    /* Style the table header */
+    table th {
+        background-color: #f2f2f2;
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    /* Style table rows alternately for better readability */
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Style table data cells */
+    table td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    /* Style the "Resolve" button */
+    table button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    /* Adjust button appearance on hover */
+    table button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+
+<h2>Profile page</h2>
+
+<p>User ID: {{ user_id }}</p>
+<p>User Type: {{ user_type }}</p>
+<p>User Name: {{ user_name }}</p>
+<p>Email: {{ email }}</p>
+<p>Balance: {{ balance }}</p>
+<p>Seller Rating: {{ seller_rating }}</p>
+<p>Buyer Rating: {{ buyer_rating }}</p>
+<p>Number of Seller Ratings: {{ num_of_seller_rating }}</p>
+<p>Number of Buyer Ratings: {{ num_of_buyer_rating }}</p>
+<p>Allow Chat: {{ is_allow_chat }}</p>
+<p>Allow Listing: {{ is_allow_list }}</p>
+
+</br>
+
+{% if user_type == "ADMIN" %}
+    <!-- Content for admin users -->
+    <div>
+        <h2>Admin Dashboard</h2>
+        <!-- More admin-specific content here -->
+        <a class="nav-link" href="{% url 'report' %}">Violation Report</a>
+        <a class="nav-link" href="{% url 'users' %}">User Authoirty</a>
+        <a class="nav-link" href="{% url 'verify_vehicles' %}">Vehicles Verification</a>
+        <a class="nav-link" href="{% url 'weekly_reports' %}">Weekly Report</a>
+    </div>
+
+{% elif user_type == "NORMAL_USER" %}
+    <!-- Content for normal users -->
+    <div>
+        <h2>Welcome, normal user!</h2>
+        </br>
+
+        <!-- Form for adding funds to own balance -->
+        <div>
+            <h2>Add Funds to Your Balance</h2>
+            <form method="post" action="{% url 'add_funds' %}">
+                {% csrf_token %}
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" min="0" step="0.01" id="amount" required>
+                <button type="submit">Add Funds</button>
+            </form>
+        </div>
+    </div>
+
+    </br>
+    <h3>Your Listed Vehicles</h3>
+    {% if listings %}
+    <table>
+        <thead>
+            <tr>
+                <th>Listing ID</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year of Production</th>
+                <th>Image</th>
+                <th>Listing Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for listing in listings %}
+            <tr>
+                <td>{{ listing.0 }}</td>
+                <td>{{ listing.1 }}</td>
+                <td>{{ listing.2 }}</td>
+                <td>{{ listing.3 }}</td>
+                <td>
+                    {% if listing.4 %}
+                        <img src="{{ listing.4 }}" alt="Vehicle Image" style="width:100px; height:auto;">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>{{ listing.6}}</td>
+                <td>{{ listing.5|yesno:"Active,Not Active" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>You have no listed vehicles.</p>
+    {% endif %}
+    </br>
+    
+<!-- In the 'Your Biddings' table -->
+<h3>Your Biddings</h3>
+{% if biddings %}
+    <table>
+        <thead>
+            <tr>
+                <th>Bidding ID</th>
+                <th>Listing ID</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year of Production</th>
+                <th>Image</th>
+                <th>Listing Status</th>
+                <th>Bidding Amount</th>
+                <th>Bidding Date</th>
+                <th>Winner Status</th>
+                <th>Seller</th> <!-- New Column for Seller ID -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for bid in biddings %}
+            <tr>
+                <td>{{ bid.0 }}</td>
+                <td>{{ bid.1 }}</td>
+                <td>{{ bid.2 }}</td>
+                <td>{{ bid.3 }}</td>
+                <td>{{ bid.4 }}</td>
+                <td>
+                    {% if bid.5 %}
+                        <img src="{{ bid.5 }}" alt="Vehicle Image" style="width:100px; height:auto;">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>{{ bid.6|yesno:"Active,Not Active" }}</td>
+                <td>${{ bid.7 }}</td>
+                <td>{{ bid.8 }}</td>
+                <td>
+                    {% if bid.9 == null %}
+                        Not Decided
+                    {% else %}
+                        {{ bid.9|yesno:"Winner,Not Winner" }}
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'other_user_profile' other_user_id=bid.10 %}">{{ bid.11 }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no biddings.</p>
+{% endif %}
+
+
+{% else %}
+    <!-- Content for other or unspecified user types -->
+    <div>
+        <h2>Welcome to our site!</h2>
+        <!-- General content for all users -->
+    </div>
+{% endif %}
+
+
+{% endblock %}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends "home.html" %} {% block body %} {% if user_name %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -82,3 +83,8 @@
     </script>
   </body>
 </html>
+{% else %}
+<div class="container mt-4">
+  <p>You need to sign in to view this page.</p>
+</div>
+{% endif %} {% endblock %}
